@@ -71,6 +71,7 @@ void deleteKey(Node* prev, Node* p, int key)
 {
     //prev digunakan untuk menunjuk ke node sebelum node yang akan dihapus
     //p digunakan untuk menunjuk ke node yang akan dihapus
+    if(prev == NULL) prev = p;
     if(p->data == key)
     {
         prev->next = p->next;
@@ -92,13 +93,26 @@ void deleteKey(Node* prev, Node* p, int key)
 int main()
 {
     Node* head = NULL;
-    head = insertEnd(head,6);
-    head = insertEnd(head,8);
-    head = insertEnd(head,10);
-    head = insertEnd(head,12);
-    head = insertEnd(head,14);
-    deleteKey(NULL, head, 14);
-    insertAfterKey(head, 611, 134);
-    deleteKey(NULL, head, 134);
+    head = insertEnd(head, 6);
+    head = insertEnd(head, 8);
+    head = insertEnd(head, 10);
+    head = insertEnd(head, 12);
+    head = insertEnd(head, 14);
     traverse(head);
+    cout << "\n";
+    insertAfterKey(head, 12, 13);
+
+    // yang ini
+    insertAfterKey(head, 8, 9);
+    traverse(head);
+    cout << "\n";
+
+    insertAfterKey(head, 15, 16);
+    traverse(head);
+    cout << "\n";
+    //yang ini
+    deleteKey(head, head, 12);
+    traverse(head);
+    cout << "\n";
+    return 0;
 }
