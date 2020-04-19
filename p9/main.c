@@ -74,7 +74,7 @@ int DFS_visit(Graph *g, COLOR *vertex_colors, int v)
 {
     int i, cycle = 0;
 
-    // printf("%d time - %d ", v, time);
+    printf("%d time - %d\n", v, time);
 
     vertex_colors[v] = GRAY;
 
@@ -82,9 +82,9 @@ int DFS_visit(Graph *g, COLOR *vertex_colors, int v)
 
     for (i = 0; i < g->n_vertices; i++)
     {
-        if(g->adjacency_matrix[v][i] && vertex_colors[i] != WHITE)
+        if(g->adjacency_matrix[v][i] && vertex_colors[i] == GRAY)
         {
-            // printf("Cycle! \n");
+            printf("Cycle! between node %d and %d\n", v, i);
             cycle = 1;
         }
         // 5.
@@ -144,6 +144,8 @@ int main()
             g.adjacency_matrix[b][a] = 1;
     }
 
+    print_adjacency_matrix(&g);
+
     int cycle = DFS(&g);
     
     if(cycle)
@@ -152,34 +154,18 @@ int main()
         return 0;
     }
 
+    for (i = 0; i < g.n_vertices; i++)
+    {
+        finish_array[i][0] = finis_time[i];
+        finish_array[i][1] = i;
+    }
+
     qsort(finish_array, g.n_vertices, sizeof(finish_array[0]), compare);
 
     for (i = 0; i < g.n_vertices; i++)
     {
         printf("v = %d, finish = %d\n", finish_array[i][1], finish_array[i][0]);
     }
-
-    // print_adjacency_matrix(&g);
-    // printf("Cycle : %d\n", cycle);
-
-
-
-    // for (i = 0; i < g.n_vertices; i++)
-    // {
-    //     printf("v = %d, finish = %d\n", i, finis_time[i]);
-    //     printf("tes\n");
-    //     finish_array[i][0] = finis_time[i];
-    //     finish_array[i][1] = i;
-    // }
-    
-    // qsort(finish_array, g.n_vertices, sizeof(finish_array[0]), compare);
-
-    // printf("Sorted\n");
-
-    // for (i = 0; i < g.n_vertices; i++)
-    // {
-    //     printf("v = %d, finish = %d\n", finish_array[i][1], finish_array[i][0]);
-    // }
 
     return 0;
 }
